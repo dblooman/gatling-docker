@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Starting influxDB"
+docker rm -f influxdb >/dev/null 2>&1
+docker run -d \
+           -p 8083:8083 -p 8084:8084 -p 8086:8086 -p 2003:2003 \
+           -e PRE_CREATE_DB="gatling;grafana" --name influxdb davey/influxdb:latest
+
+echo "Starting Grafana"
+docker rm -f grafana >/dev/null 2>&1
+docker run -d \
+           -p 8081:8081 --name grafana davey/grafana
