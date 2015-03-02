@@ -26,7 +26,8 @@ This should now show you the Grafana Gatling dashboard preloaded into the Grafan
 To view the Grafana dashboard across your LAN, you'll need to forward ports for the [boot2docker-vm manually](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md#port-forwarding):
 
 ```bash
-$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8081,tcp,,8081,,8081";
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8081,tcp,,8081,,8081"
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8086,tcp,,8086,,8086"
 ```
 
 Note that this does require the vm to be stopped and restarted - so, `boot2docker stop`, set the forwarding, and then `boot2docker up` again.
