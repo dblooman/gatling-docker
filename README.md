@@ -23,6 +23,15 @@ You should see 2 container ID's and everything should be running.  Next visit [l
 
 This should now show you the Grafana Gatling dashboard preloaded into the Grafana image.  From this point on, as long as the InfluxDB image is running, you can save dashboards to it.  Once it goes down, all data will be lost.  Once you are done with the stack, export your dashboard.
 
+To view the Grafana dashboard across your LAN, you'll need to forward ports for the [boot2docker-vm manually](https://github.com/boot2docker/boot2docker/blob/master/doc/WORKAROUNDS.md#port-forwarding):
+
+```bash
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8081,tcp,,8081,,8081"
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8086,tcp,,8086,,8086"
+```
+
+Note that this does require the vm to be stopped and restarted - so, `boot2docker stop`, set the forwarding, and then `boot2docker up` again.
+
 ### InfluxDB
 
 All the options for InfluxDB are the influxdb directory, but the web interface is located at [localhost:8083](http://localhost:8083) or your boot2dockerIP and port e.g [http://192.168.59.103:8083/](http://192.168.59.103:8083/)
