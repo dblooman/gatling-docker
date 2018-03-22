@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  influxdb:
+    build: influxdb
+    env_file: configuration.env
+    ports:
+      - '8086:8086'
+      - '2003:2003'
+  grafana:
+    build: grafana
+    env_file: configuration.env
+    links:
+      - influxdb
+    ports:
+      - '3000:3000'

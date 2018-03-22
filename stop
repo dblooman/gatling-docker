@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Stopping influxDB"
-docker rm -f influxdb >/dev/null 2>&1
-
-echo "Stopping Grafana"
-docker rm -f grafana >/dev/null 2>&1

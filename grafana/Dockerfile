@@ -1,22 +1,7 @@
-FROM debian:wheezy
-MAINTAINER David Blooman <david.blooman@gmail.com>
+FROM grafana/grafana:5.0.0
 
-RUN apt-get -y update
-RUN apt-get -y install python wget
+RUN apt-get update && apt-get install -y curl gettext-base && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /src
-
-RUN wget http://grafanarel.s3.amazonaws.com/grafana-1.9.1.tar.gz
-RUN tar xzvf grafana-1.9.1.tar.gz && rm grafana-1.9.1.tar.gz
-RUN mv grafana-1.9.1 /src/grafana
-
-ADD config.js /src/grafana/config.js
-ADD default.json /src/grafana/app/dashboards/default.json
-
-ONBUILD COPY default.json /src/grafana/app/dashboards/default.json
-
-WORKDIR /src/grafana
-
-EXPOSE 8080
-
-CMD ["python", "-m", "SimpleHTTPServer", "8081"]
+COPY ./datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
+COPY ./dashboards.yaml /etc/grafana/provisioning/dashboards/dashboards.yaml
+COPY ./default.json /var/lib/grafana/dashboards/default.json
